@@ -1,7 +1,8 @@
+/* 基本設定とダークモードの背景 */
 body {
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+    background-color: #1e1e1e; /* 暗い背景色 */
+    color: #e0e0e0; /* 明るい文字色 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,63 +11,103 @@ body {
     padding: 20px 0;
 }
 
+/* 診断全体のコンテナ */
 .container {
-    background-color: #fff;
+    background-color: #2d2d2d; /* 本体部分の背景色 */
     padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
     text-align: center;
-    max-width: 600px;
+    max-width: 650px;
     width: 90%;
+    border: 1px solid #444;
 }
 
+/* 見出し */
 h1 {
-    color: #1c1e21;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
+h2 {
+    color: #ffffff;
+}
+h3 {
+    color: #87CEEB; /* 結果タイプの文字色をスカイブルーに */
+    font-size: 1.8em;
 }
 
+/* 質問文と結果説明文 */
 #question-area, #result-area {
     margin: 20px 0;
 }
-
 #question-text, #result-description {
     font-size: 1.2em;
     min-height: 60px;
-    line-height: 1.6;
+    line-height: 1.7;
+    color: #dcdcdc;
 }
 
+/* ★追加：残り質問数のカウンター */
+#progress-counter {
+    color: #999;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+/* ★追加：最終スコア表示エリア */
+#score-display {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #555;
+}
+#score-display h4 {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+#final-scores {
+    font-size: 1.1em;
+    color: #fff;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+
+/* ボタン共通スタイル */
 button {
-    background-color: #1877f2;
     color: white;
     border: none;
     padding: 12px 20px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s ease-in-out;
     margin: 5px;
+    background-color: #5865f2; /* ボタンの色 */
 }
-
 button:hover {
-    background-color: #166fe5;
+    background-color: #4752c4;
+    transform: translateY(-2px); /* 少し浮き上がる効果 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* 回答ボタンのエリアのスタイル */
+/* 回答ボタンのエリア */
 #answer-buttons {
     display: flex;
-    flex-wrap: wrap; /* 画面が狭い時に折り返す */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px; /* ボタン間の隙間 */
+    gap: 10px;
+    margin-top: 15px;
 }
-
-/* 回答ボタン個別のスタイル */
 .answer-btn {
-    flex: 1 1 200px; /* ボタンの幅を調整 */
-    min-height: 50px;
+    flex: 1 1 220px;
+    min-height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* ★重要：このクラスがついた要素を非表示にする */
 .hidden {
     display: none;
 }
