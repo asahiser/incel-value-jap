@@ -107,8 +107,7 @@ button:hover {
     justify-content: center;
 }
 
-/* ★重要：このクラスがついた要素を非表示にする */
+/* ★修正：!importantを追加して、このスタイルが常に最優先されるようにする */
 .hidden {
-    display: none;
+    display: none !important;
 }
-
