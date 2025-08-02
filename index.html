@@ -9,12 +9,15 @@
 <body>
     <div class="container">
         <h1>インセル価値観診断</h1>
+
         <div id="question-area">
             <p id="question-text">下のボタンを押して診断を開始してください。</p>
+            <!-- ★追加：残り質問数を表示する場所 -->
+            <p id="progress-counter" class="hidden"></p>
             <button id="start-button">診断開始</button>
         </div>
 
-        <!-- 回答ボタンのエリアを4択用に変更 -->
+        <!-- ★重要：class="hidden"で、最初は非表示にしておく -->
         <div id="answer-buttons" class="hidden">
             <button class="answer-btn" data-answer="agree">そう思う</button>
             <button class="answer-btn" data-answer="somewhat_agree">どちらかと言えば<br>そう思う</button>
@@ -22,12 +25,21 @@
             <button class="answer-btn" data-answer="disagree">そう思わない</button>
         </div>
 
+        <!-- ★重要：class="hidden"で、最初は非表示にしておく -->
         <div id="result-area" class="hidden">
             <h2>あなたの価値観タイプは...</h2>
             <h3 id="result-type"></h3>
             <p id="result-description"></p>
+
+            <!-- ★追加：最終スコアを表示する場所 -->
+            <div id="score-display">
+                <h4>最終スコア</h4>
+                <p id="final-scores"></p>
+            </div>
+
             <button onclick="location.reload()">もう一度診断する</button>
         </div>
+
     </div>
     <script src="script.js"></script>
 </body>
