@@ -1,7 +1,4 @@
 // --- 設定項目 ---
-
-// 1. 質問リスト
-// 全27問。内容は変更ありません。
 const questions = [
     { text: "自分の人生は、総体的に良いものだと考えている", effect: { vitality: 1, misanthropy: 0 } },
     { text: "恋愛や異性に対して、ポジティブなイメージを持っている", effect: { vitality: 1, misanthropy: -1 } },
@@ -31,20 +28,18 @@ const questions = [
     { text: "一つのことを深く探究するのが好きだ", effect: { vitality: 1, misanthropy: 0 } },
     { text: "たとえ友達やパートナーがいなくとも、自分の人生を楽しみ抜く自信がある", effect: { vitality: 1, misanthropy: 0 } }
 ];
-
-// 2. 結果の定義
 const results = {
-    "理想家": { description: "誇り高きインセル。真理の存在や人間性の理想を信じ、ありうべく社会を構想する思索家。その理想の高さゆえに冷笑的なインセルコミュニティでは後ろ指をさされることも多い。" },
-    "野心家": { description: "いわゆる侍。人との関わりを絶ち、自己を研鑽に一心不乱に投じる様は、まさしく現代の武士道精神を体現しているものだ。だが、その内側には競争的な一面も秘めているので冷静さを忘れないことが肝要だろう。" },
-    "生存者": { description: "「持てる」インセル。あなたはまだ何も喪っていない。" },
-    "被抑圧者": { description: "生への希望は持てないが、かといって革命を諦めていない革命家の卵。まず他者の目線から解放されることであなたらしさを取り戻そう。" },
-    "喪失者": { description: "生への肯定感を失い、人間社会に対しても虚無的な視線を向けた冷笑家。かつて持っていたかもしれない希望や理想を諦め、静かに世界を傍観している状態にある。" },
-    "ごろつき": { description: "狂犬。世界を敵とみなし、破壊的な衝動に駆られる可能性がある。" }
+    "理想家": { description: "生への肯定感が高く、人間への信頼を失っていないタイプ。世界や人間性の理想を信じ、より良い社会を目指そうとします。時に現実とのギャップに悩むこともありますが、その前向きさがあなたの強みです。" },
+    "野心家": { description: "生への肯定感が高く、強い上昇志向を持っています。人間嫌いの側面は、他者をライバルとみなし、競争を勝ち抜くためのエネルギーに変換されます。目標達成のためなら手段を厭わない危うさも秘めています。" },
+    "生存者": { description: "人間社会に一定の距離を置きつつも、自己の生は強く肯定しているタイプ。集団に依存せず、自らのスキルや知識を頼りに現実世界を生き抜こうとします。クールで現実的な視点が特徴です。" },
+    "被抑圧者": { description: "生への肯定感が低く、他者からの評価に敏感です。人間関係に希望を持ちたいと願う一方で、傷つくことを恐れています。自己肯定感を育むことが、現状を打破する鍵となるでしょう。" },
+    "喪失者": { description: "生への肯定感を失い、人間社会に対しても虚無的な視線を向けています。かつて持っていたかもしれない希望や理想を諦め、静かに世界を傍観している状態です。無気力感に支配されやすい傾向があります。" },
+    "ごろつき": { description: "生への肯定感が低く、その不満を他者や社会への攻撃性として表出させるタイプ。世界は敵であるとみなし、破壊的な衝動に駆られることがあります。根底には、満たされない承認欲求が渦巻いています。" }
 };
-
 
 // --- プログラム本体 ---
 
+// HTMLの要素を取得
 const startButton = document.getElementById('start-button');
 const questionArea = document.getElementById('question-area');
 const questionText = document.getElementById('question-text');
@@ -52,23 +47,32 @@ const answerButtons = document.getElementById('answer-buttons');
 const resultArea = document.getElementById('result-area');
 const resultType = document.getElementById('result-type');
 const resultDescription = document.getElementById('result-description');
+// ★追加：新しい要素を取得
+const progressCounter = document.getElementById('progress-counter');
+const finalScoresDisplay = document.getElementById('final-scores');
 
 let currentQuestionIndex = 0;
 let scores = { vitality: 0, misanthropy: 0 };
 
+// 診断開始ボタンの処理
 startButton.addEventListener('click', startDiagnosis);
 
 function startDiagnosis() {
     startButton.classList.add('hidden');
     answerButtons.classList.remove('hidden');
+    // ★追加：進捗カウンターを表示
+    progressCounter.classList.remove('hidden');
     showQuestion();
 }
 
+// 質問と進捗を表示する関数
 function showQuestion() {
     questionText.textContent = `Q${currentQuestionIndex + 1}. ${questions[currentQuestionIndex].text}`;
+    // ★追加：進捗カウンターを更新
+    progressCounter.textContent = `残り ${questions.length - currentQuestionIndex} 問`;
 }
 
-// ★★★ 回答ボタンの処理を4択対応に更新 ★★★
+// 回答ボタンの処理
 answerButtons.addEventListener('click', (event) => {
     const clickedButton = event.target.closest('.answer-btn');
     if (!clickedButton) return;
@@ -77,23 +81,13 @@ answerButtons.addEventListener('click', (event) => {
     const effect = questions[currentQuestionIndex].effect;
     
     let multiplier = 0;
-    // 回答の選択肢に応じてスコアの変動倍率を決定
     switch (answer) {
-        case 'agree':
-            multiplier = 1;
-            break;
-        case 'somewhat_agree':
-            multiplier = 0.5;
-            break;
-        case 'somewhat_disagree':
-            multiplier = -0.5;
-            break;
-        case 'disagree':
-            multiplier = -1;
-            break;
+        case 'agree': multiplier = 1; break;
+        case 'somewhat_agree': multiplier = 0.5; break;
+        case 'somewhat_disagree': multiplier = -0.5; break;
+        case 'disagree': multiplier = -1; break;
     }
 
-    // スコアを計算
     scores.vitality += effect.vitality * multiplier;
     scores.misanthropy += effect.misanthropy * multiplier;
 
@@ -106,6 +100,7 @@ answerButtons.addEventListener('click', (event) => {
     }
 });
 
+// 最終結果とスコアを表示する関数
 function showResult() {
     questionArea.classList.add('hidden');
     answerButtons.classList.add('hidden');
@@ -114,12 +109,18 @@ function showResult() {
     const finalType = determineType(scores);
     resultType.textContent = finalType;
     resultDescription.textContent = results[finalType].description;
+
+    // ★追加：最終スコアを表示
+    // 小数点第一位まで表示するように四捨五入
+    const finalVitality = Math.round(scores.vitality * 10) / 10;
+    const finalMisanthropy = Math.round(scores.misanthropy * 10) / 10;
+    finalScoresDisplay.textContent = `生への肯定感: ${finalVitality} / 人間嫌悪: ${finalMisanthropy}`;
 }
 
+// タイプを決定する関数
 function determineType(finalScores) {
     const { vitality, misanthropy } = finalScores;
     
-    // 4択化によりスコアの振れ幅が変わるため、境界値を微調整
     const vitalityThreshold = 2;
     const misanthropyThresholdHigh = 6;
     const misanthropyThresholdLow = -4;
