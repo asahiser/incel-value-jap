@@ -1,0 +1,72 @@
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    color: #1c1e21;
+}
+
+#question-area, #result-area {
+    margin: 20px 0;
+}
+
+#question-text, #result-description {
+    font-size: 1.2em;
+    min-height: 60px;
+    line-height: 1.6;
+}
+
+button {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #166fe5;
+}
+
+/* 回答ボタンのエリアのスタイル */
+#answer-buttons {
+    display: flex;
+    flex-wrap: wrap; /* 画面が狭い時に折り返す */
+    justify-content: center;
+    gap: 10px; /* ボタン間の隙間 */
+}
+
+/* 回答ボタン個別のスタイル */
+.answer-btn {
+    flex: 1 1 200px; /* ボタンの幅を調整 */
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
